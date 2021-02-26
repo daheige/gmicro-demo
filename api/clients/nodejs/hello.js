@@ -4,6 +4,7 @@ let grpc = require('grpc');
 
 let request = new messages.HelloReq();
 request.setName('heige');
+request.setId(2);
 
 let client = new services.GreeterServiceClient(
     'localhost:8081',
