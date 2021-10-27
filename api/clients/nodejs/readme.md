@@ -24,13 +24,12 @@
 
 # nodejs gprc install
 
-    cnpm install grpc-tools --save-dev
     cnpm install google-protobuf --save
-    cnpm install grpc --save
+    cnpm install @grpc/grpc-js --save
 
     or 
     
-    cnpm install
+    cnpm install --save
      
 # nodejs client run
 
