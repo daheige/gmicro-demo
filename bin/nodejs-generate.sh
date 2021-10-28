@@ -34,13 +34,13 @@ if [ $os == "Darwin" ];then
     sed -i "" 's/let google_api_annotations_pb/\/\/ let google_api_annotations_pb/g' `grep google_api_annotations_pb -rl $nodejs_pb_dir`
     sed -i "" 's/goog.object.extend(proto, google_api_annotations_pb)/\/\/ this code deleted/g' `grep google_api_annotations_pb -rl $nodejs_pb_dir`
     grpc_module=`grep "require('grpc')" -rl $nodejs_pb_dir`
-    sed -i "" 's/var grpc = require/var grpc = require("@grpc\/grpc-js");\/\/ this grpc will use grpc-js instead /g' $grpc_module
+    sed -i "" 's/^var grpc = require\.*/var grpc = require("@grpc\/grpc-js"); \/\/ this grpc will use grpc-js instead /g' $grpc_module
 else
     sed -i 's/var google_api_annotations_pb/\/\/ var google_api_annotations_pb/g' `grep google_api_annotations_pb -rl $nodejs_pb_dir`
     sed -i 's/let google_api_annotations_pb/\/\/ let google_api_annotations_pb/g' `grep google_api_annotations_pb -rl $nodejs_pb_dir`
     sed -i 's/goog.object.extend(proto, google_api_annotations_pb)/\/\/ this code deleted/g' `grep google_api_annotations_pb -rl $nodejs_pb_dir`
     grpc_module=`grep "require('grpc')" -rl $nodejs_pb_dir`
-    sed -i 's/var grpc = require/var grpc = require("@grpc\/grpc-js");\/\/ this grpc will use grpc-js replace /g' $grpc_module
+    sed -i 's/^var grpc = require\.*/var grpc = require("@grpc\/grpc-js"); \/\/ this grpc will use grpc-js instead /g' $grpc_module
 fi
 
 echo "generating nodejs code success"
