@@ -3,39 +3,45 @@ root_dir=$(cd "$(dirname "$0")"; cd ..; pwd)
 
 protoExec=$(which "protoc")
 if [ -z $protoExec ]; then
-    echo 'Please install protoc!'
-    echo "Please look readme.md to install proto3"
-    echo "if you use centos7,please look https://github.com/daheige/go-proj/blob/master/docs/centos7-protoc-install.md"
+    echo 'please install protoc'
+    echo "please look readme.md to install protoc"
+    echo "if you use centos7,please look: https://github.com/daheige/gmicro/blob/main/docs/linux-go-grpc.md"
     exit 0
 fi
 
-proto_dir=$root_dir/api/protos
-pb_dir=$root_dir/api/clients/go/pb
+protos_dir=$root_dir/api/protos
+go_out_dir=$root_dir/api/clients/go/pb
 
-mkdir -p $pb_dir
-mkdir -p $proto_dir
+mkdir -p $go_out_dir
 
 #delete old pb code.
-rm -rf $pb_dir/*.pb.go
+rm -rf $go_out_dir/*.go
 
 echo "\n\033[0;32mGenerating codes...\033[39;49;0m\n"
 
 echo "generating golang stubs..."
-cd $proto_dir
+cd $protos_dir
 
-#generate go pb code
-$protoExec -I $proto_dir --go_out=plugins=grpc:$pb_dir $proto_dir/*.proto
+# go grpc code
+protoc -I $protos_dir \
+    --go_out $go_out_dir --go_opt paths=source_relative \
+    --go-grpc_out $go_out_dir --go-grpc_opt paths=source_relative \
+    $protos_dir/*.proto
 
-#http gw code
-$protoExec -I $proto_dir --grpc-gateway_out=logtostderr=true:$pb_dir $proto_dir/*.proto
+# http gw code
+protoc -I $protos_dir --grpc-gateway_out $go_out_dir \
+    --grpc-gateway_opt logtostderr=true \
+    --grpc-gateway_opt paths=source_relative \
+    $protos_dir/*.proto
 
-#inject tag
-sh $root_dir/bin/protoc-inject-tag.sh
-
-# request validator code
+# validator code
 sh $root_dir/bin/validator-generate.sh
 
+# inject validator tag to xxx.pb.go
+sh $root_dir/bin/protoc-inject-tag.sh
+
 echo "generating golang code success"
+
 echo "\n\033[0;32mGenerate codes successfully!\033[39;49;0m\n"
 
 exit 0

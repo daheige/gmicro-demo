@@ -1,6 +1,6 @@
 const services = require('./pb/hello_grpc_pb.js');
 const messages = require('./pb/hello_pb.js');
-const grpc = require('@grpc/grpc-js');
+const grpc = require('grpc');
 const http = require('http');
 
 const port = 3000

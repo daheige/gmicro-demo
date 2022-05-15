@@ -7,6 +7,7 @@ import (
 
 	"github.com/daheige/gmicro-demo/api/clients/go/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 const (
@@ -17,13 +18,20 @@ const (
 )
 
 /**
-% go run client.go
-2021/02/26 23:00:37 name:hello,micro,message:call ok
+% go run client.go daheige
+2020/06/27 23:28:42 name:hello,daheige,message:call ok
+heige@daheige client % go run client.go daheige123
+2020/06/27 23:28:51 name:hello,daheige123,message:call ok
 */
 
 func main() {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	// please note the following settings
+	// Deprecated: use WithTransportCredentials and insecure.NewCredentials()
+	// instead. Will be supported throughout 1.x.
+	// conn, err := grpc.Dial(address, grpc.WithInsecure())
+	// so use grpc.WithTransportCredentials(insecure.NewCredentials()) as default grpc.DialOption
+	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -40,7 +48,6 @@ func main() {
 
 	res, err := c.SayHello(context.Background(), &pb.HelloReq{
 		Name: name,
-		Id:   1,
 	})
 
 	if err != nil {

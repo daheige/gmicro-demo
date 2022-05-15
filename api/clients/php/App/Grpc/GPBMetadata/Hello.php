@@ -15,9 +15,21 @@ class Hello
           return;
         }
         // \AppGrpc\GPBMetadata\Google\Api\Annotations::initOnce();
-        $pool->internalAddGeneratedFile(hex2bin(
-            "0aea010a0b68656c6c6f2e70726f746f120e4170702e477270632e48656c6c6f22240a0848656c6c6f526571120a0a026964180120012803120c0a046e616d65180220012809222b0a0a48656c6c6f5265706c79120c0a046e616d65180120012809120f0a076d65737361676518022001280932680a0e477265657465725365727669636512560a0853617948656c6c6f12182e4170702e477270632e48656c6c6f2e48656c6c6f5265711a1a2e4170702e477270632e48656c6c6f2e48656c6c6f5265706c79221482d3e493020e120c2f76312f7361792f7b69647d42065a042e3b7062620670726f746f33"
-        ), true);
+        $pool->internalAddGeneratedFile(
+            '
+Í
+hello.protoApp.Grpc.Hello"$
+HelloReq
+
+id (
+name (	"+
+
+HelloReply
+name (	
+message (	2h
+GreeterServiceV
+SayHello.App.Grpc.Hello.HelloReq.App.Grpc.Hello.HelloReply"Ç”‰ì/v1/say/{id}BZ.;pbbproto3'
+        , true);
 
         static::$is_initialized = true;
     }

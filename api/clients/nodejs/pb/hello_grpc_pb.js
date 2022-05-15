@@ -1,7 +1,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require("@grpc/grpc-js"); // this grpc will use grpc-js instead ('grpc');
+var grpc = require('grpc');
 var hello_pb = require('./hello_pb.js');
 // var google_api_annotations_pb = require('./google/api/annotations_pb.js');
 
@@ -9,7 +9,7 @@ function serialize_App_Grpc_Hello_HelloReply(arg) {
   if (!(arg instanceof hello_pb.HelloReply)) {
     throw new Error('Expected argument of type App.Grpc.Hello.HelloReply');
   }
-  return new Buffer(arg.serializeBinary());
+  return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_App_Grpc_Hello_HelloReply(buffer_arg) {
@@ -20,7 +20,7 @@ function serialize_App_Grpc_Hello_HelloReq(arg) {
   if (!(arg instanceof hello_pb.HelloReq)) {
     throw new Error('Expected argument of type App.Grpc.Hello.HelloReq');
   }
-  return new Buffer(arg.serializeBinary());
+  return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_App_Grpc_Hello_HelloReq(buffer_arg) {

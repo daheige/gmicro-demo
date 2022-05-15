@@ -1,7 +1,10 @@
 # gmicro framework demo
-
-    A framework encapsulated based on grpc and grpc gateway
     link: https://github.com/daheige/gmicro
+    if use gmicro v1 version,please checkout v1 branch.
+
+# gmicro docs
+
+https://github.com/daheige/gmicro/blob/main/docs
 
 # Code generation
 
